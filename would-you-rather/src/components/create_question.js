@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Card, Form, Row, Col, Button} from 'react-bootstrap';
 import { handleAddQuestion } from '../redux/actions/questions';
+import { Redirect } from 'react-router-dom';
+
 
 class CreateQuestion extends React.Component {
 	state = {
@@ -22,8 +24,9 @@ class CreateQuestion extends React.Component {
 				optionTwo: '',
 				toHome: true
 			},
-			() => dispatch(handleAddQuestion(optionOne, optionTwo))
+			() => dispatch(handleAddQuestion(optionOne, optionTwo)),
 		);
+		
 	};
 
 	inputChange = (e) => {
@@ -33,11 +36,13 @@ class CreateQuestion extends React.Component {
 			[name]: value
 		});
 	};
-
 	
-
 	render() {
-		const { optionOne, optionTwo } = this.state;
+		const { optionOne, optionTwo,toHome } = this.state;
+		if (toHome === true)
+		{
+			return <Redirect to="/" />
+		} 
 
 		return (
 			<div>
@@ -52,7 +57,7 @@ class CreateQuestion extends React.Component {
 							<Card.Body>
 								<h5 >Would You Rather...!</h5>
 
-								<Form onSubmit={this.inputs}>
+								<Form onSubmit={this.inputs} >
 									<Form.Control type="text" name="optionOne" placeholder="Enter Option One Text here" value={optionOne} onChange={this.inputChange} required/>
 									
 									<h5>OR</h5>
