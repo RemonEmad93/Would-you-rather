@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {Card, Form, Button} from 'react-bootstrap'
 import { handleAddAnswer } from '../redux/actions/questions';
+import Page404 from '../views/page_404'
 
 
 
@@ -16,6 +17,12 @@ class UnansweredQuestion extends React.Component {
 	};
 
 	render() {
+
+		if (this.props.question === null)
+		 {
+			return <Page404 />;
+		}
+
 		return (
 			<Card bg="light" className="m-3 " style={{width:"70%"}}>
 				<Card.Header style={{backgroundColor:"skyblue"}} className="text-center">
@@ -26,6 +33,7 @@ class UnansweredQuestion extends React.Component {
 
 				<Card.Body className="d-flex justify-content-center ">
 					<Form onSubmit={(e) => this.input(this.props.question.id, e)} ref={(f) => (this.form = f)} >
+						<h3>Would You Rather...</h3>
 						<Form.Check type="radio"  value="optionOne" name="answer" label={this.props.question.optionOne.text}  required/>
 
 						<Form.Check type="radio" value="optionTwo" name="answer"  label={this.props.question.optionTwo.text} required/>

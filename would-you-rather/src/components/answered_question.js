@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {Card, ProgressBar} from 'react-bootstrap';
+import Page404 from '../views/page_404'
 
 class AnsweredQuestion extends React.Component {
 	render() {
@@ -8,7 +9,13 @@ class AnsweredQuestion extends React.Component {
 		const optionOnePer = Math.round((this.props.question.optionOne.votes.length / Score) * 100);
 		const optionTwoPer = Math.round((this.props.question.optionTwo.votes.length / Score) * 100);
 
+		if (this.props.question === null) 
+		{
+			return <Page404 />;
+		}
+
 		return (
+			
 			<Card bg="light" className="m-5" style={{width:"70%"}}>
 				<Card.Header style={{backgroundColor:"skyblue"}} className="text-center">
 					<Card.Img style={{width:"10%" ,height:'10%', borderRadius:'100%'}} src={this.props.author.avatarURL} />
